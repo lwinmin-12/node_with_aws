@@ -12,6 +12,9 @@ export const getDevice = async (payload : {} ) =>{
 }
 
 export const updateDevice = async (query : {} , body : UpdateQuery<deviceDocument> ) =>{
+    
+    // console.log(body , 'here')
+
      await DeviceModel.updateMany( query , body)
     return await DeviceModel.find(query).lean()
 

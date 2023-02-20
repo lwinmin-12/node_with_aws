@@ -14,7 +14,7 @@ const host = config.get<string>("host")
 const dbUrl = config.get<string>('dbUrl')
 
 mongoose.connect(dbUrl)
-const client = mqtt.connect('mqtts://7cb0bb03390b413ca6ebc8bf5bf63014.s2.eu.hivemq.cloud ', {
+export const client = mqtt.connect('mqtts://7cb0bb03390b413ca6ebc8bf5bf63014.s2.eu.hivemq.cloud', {
   username: 'lmo-12',
   password: 'mindin4580',
 });
@@ -45,8 +45,8 @@ client.on("message", async (topic , message)=>{
     // messageForShow(topic , message)
 
     // console.log(topic , '///' , message.toString()) 
-    let result = await updateDevice({_id : topic} ,{status :  message.toString()})
-    
+    // let result = await updateDevice({_id : topic} ,{status :  message.toString()})
+    console.log(topic , message.toString())
   });
 
 app.get('/' , (req : Request , res : Response , next : NextFunction)=>{

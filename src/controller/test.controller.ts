@@ -1,5 +1,6 @@
 import express ,{NextFunction , Request , Response } from "express";
 import { addDevice, getDevice ,updateDevice,deleteDevice } from "../service/test.service";
+import {client} from '../app'
 
 export const addDeviceHandler = async (req : Request  , res : Response, next : NextFunction) =>{
     try{
@@ -34,6 +35,12 @@ export const getDeviceHandler = async (req : Request  , res : Response, next : N
 export const updateDeviceHandler = async (req : Request  , res : Response, next : NextFunction) =>{
     try{
         let result = await updateDevice(req.query , req.body)
+        if(req.body.status == 'on'){
+                   client.publish("command1" , '1' ,{ qos: 0, retain: false })
+        }
+        if(req.body.status == 'off'){
+            client.publish("command1" , '0' ,{ qos: 0, retain: false })
+        }
         res.status(200).json({
             "con" : true,
             "result" : result
